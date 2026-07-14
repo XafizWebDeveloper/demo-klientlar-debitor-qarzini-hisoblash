@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B Савдо: Қарздорлик Анализатори</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="img/123654.jpg">
+
+    <!-- Excel файлларни ўқиш учун SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Word файл яратиш учун docx.js -->
+    <script src="https://unpkg.com/docx@7.8.2/build/index.js"></script>
+</head>
+
+<body>
+    <!-- Парол сўраш қисми видео учун вақтинча ўчирилди 
+    <script>
+        const PAROL = "1234";
+        let userPass = prompt("B2B Аналитика тизимига хуш келибсиз! Паролни киритинг:");
+        if (userPass !== PAROL) {
+            document.body.innerHTML = "<h2 style='text-align:center; margin-top:50px; color:red;'>Парол нотўғри!</h2>";
+            throw new Error("Парол нотўғри!");
+        }
+    </script>
+    -->
+
+    <div class="container">
+        <div class="header">
+            <h1>B2B Савдо: Қарздорлик Анализатори</h1>
+            <p>Савдо филиалларининг Excel файлларини юкланг ва муддати ўтган қарздорларни автоматик аниқланг</p>
+            <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">Версия: 3.1 (Электроника B2B)</p>
+        </div>
+
+        <div class="card">
+            <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📄</div>
+                <div class="upload-text">Анализ учун Excel файлларни танлаш учун босинг</div>
+                <div class="upload-subtext">ёки файлларни шу ерга ташланг (бир нечта файл танлаш мумкин)</div>
+                <input type="file" id="fileInput" multiple accept=".xlsx, .xls">
+            </div>
+
+            <div class="file-list" id="fileList"></div>
+
+            <button class="btn" id="btnProcess" disabled style="margin-top: 20px;">
+                Таҳлилни бошлаш (20,000 қатор ~ 40 сонияда)
+            </button>
+        </div>
+
+        <div class="loading" id="loadingSection">
+            <div class="spinner"></div>
+            <p>База ўқилмоқда ва қарздорликлар таҳлил қилинмоқда... Илтимос кутинг.</p>
+        </div>
+
+        <div class="card results-section" id="resultsSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="font-size: 1.5rem;">Натижалар</h2>
+                <button class="btn btn-success" id="btnDownloadWord" style="width: auto;">
+                    📥 Натижани (Word файли) юклаб олиш
+                </button>
+            </div>
+
+            <div class="results-table-wrapper">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">Файл номи</th>
+                            <th style="width: 30%;">Клиент (Коди)</th>
+                            <th style="width: 50%;">Қарздорлик ҳолати (Муаммолар)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                        <!-- Натижалар шу ерга тушади -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        Муаллиф: <a href="#" id="devLink" target="_blank">Хафиз Расулов</a>
+    </footer>
+
+    <!-- Вордга чиқмайдиган клиентлар рўйхати -->
+    <script src="ignoredClients.js"></script>
+
+    <!-- Асосий мантиқ ёзиладиган файл -->
+    <script src="b2bAnalyzer.js"></script>
+</body>
+
+</html>
